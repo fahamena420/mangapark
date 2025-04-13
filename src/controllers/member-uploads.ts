@@ -66,10 +66,12 @@ export const memberUploads = async (req: Request, res: Response) => {
     const response = await client.post('/apo/', {
       query,
       variables: {
-        init: Number(init),
-        page: Number(page),
-        size: Number(size),
-        where: "uploads"
+        select: {
+          init: Number(init),
+          page: Number(page),
+          size: Number(size),
+          where: "uploads"
+        }
       }
     })
     const data = response.data?.data

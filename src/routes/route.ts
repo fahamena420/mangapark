@@ -9,6 +9,8 @@ import { yWeekList } from "../controllers/yweek-list";
 import { mplistsNewlyAdded } from "../controllers/mplists-newly-added";
 import { mplistsMostsLikes } from "../controllers/mplists-most-likes";
 import { search } from "../controllers/search";
+import { info } from "../controllers/info";
+import { chapters } from "../controllers/chapters";
 
 const router = Router();
 
@@ -30,6 +32,10 @@ router.get('/most-likes', mplistsMostsLikes)
 
 router.get('/search', search)
 
-router.get('/images', images)
+router.get('/info/:id', info)
+
+router.get('/chapters/:id', chapters)
+
+router.get('/images/:infoId/:id', images)
 
 export default router;

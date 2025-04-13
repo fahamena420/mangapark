@@ -5,15 +5,7 @@ const query = `
   query get_mylist_SortedList($select: MylistList_Select) {
     get_mylist_SortedList(select: $select) {
       paging {
-        total
-        pages
-        page
-        init
-        size
-        skip
-        limit
-        prev
-        next
+        total pages page init size skip limit prev next
       }
       items {
         id
@@ -131,13 +123,23 @@ const query = `
 
 export const mplistsMostsLikes = async (req: Request, res: Response) => {
   try {
-    const { page = 1, size = 12 } = req.query
+    const {
+      comicId = null,
+      init = 6,
+      page = 1,
+      size = 12
+    } = req.query
+
     const response = await client.post('/apo/', {
       query,
       variables: {
-        page: Number(page),
-        size: Number(size),
-        sortby: "likes"
+        select: {
+          comicId: Number(comicId),
+          init: Number(init),
+          page: Number(page),
+          size: Number(size),
+          sortby: "likes"
+        }
       }
     })
     const data = response.data.data

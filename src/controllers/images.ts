@@ -4,7 +4,8 @@ import * as cheerio from 'cheerio'
 
 export const images = async (req: Request, res: Response) => {
   try {
-    const response = await client.get('/title/252832-en-i-will-become-the-hero-s-mother/9612765-vol-0-ch-61')
+    const { infoId, id } = req.params
+    const response = await client.get(`/title/${infoId}/${id}`)
     const $ = cheerio.load(response.data)
 
     const object = JSON.parse($("script[type='qwik/json']").text()).objs

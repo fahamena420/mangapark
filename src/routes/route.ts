@@ -36,6 +36,6 @@ router.get('/info/:id', info)
 
 router.get('/chapters/:id', chapters)
 
-router.get('/images/:wildcard(*)', images);
+router.get('/images', images);
 
 export default router;

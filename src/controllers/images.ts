@@ -4,8 +4,8 @@ import * as cheerio from 'cheerio';
 
 export const images = async (req: Request, res: Response) => {
   try {
-    // The fix is to use the named parameter 'path' from the route.
-    const id = req.params.path; 
+    // The fix is to get the path from req.params[0], which corresponds to the regex capture group.
+    const id = req.params[0]; 
 
     if (!id || typeof id !== 'string') {
       return res.status(400).json({ error: 'Missing or invalid "id" in the URL path' });

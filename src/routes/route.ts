@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, RequestHandler } from "express"; // Import RequestHandler
 import { images } from "../controllers/images";
 import { popularUpdates } from "../controllers/popular-updates";
 import { latestReleases } from "../controllers/latest-releases";
@@ -14,28 +14,19 @@ import { chapters } from "../controllers/chapters";
 
 const router = Router();
 
-router.get('/popular-updates', popularUpdates)
+router.get('/popular-updates', popularUpdates);
+router.get('/member-uploads', memberUploads);
+router.get('/latest-releases', latestReleases);
+router.get('/random', randomMangas);
+router.get('/yweek-list', yWeekList);
+router.get('/mplists-weekly/:yweek', mplistsWeekly);
+router.get('/newly-added', mplistsNewlyAdded);
+router.get('/most-likes', mplistsMostsLikes);
+router.get('/search', search);
+router.get('/info/:id', info);
+router.get('/chapters/:id', chapters);
 
-router.get('/member-uploads', memberUploads)
-
-router.get('/latest-releases', latestReleases)
-
-router.get('/random', randomMangas)
-
-router.get('/yweek-list', yWeekList)
-
-router.get('/mplists-weekly/:yweek', mplistsWeekly)
-
-router.get('/newly-added', mplistsNewlyAdded)
-
-router.get('/most-likes', mplistsMostsLikes)
-
-router.get('/search', search)
-
-router.get('/info/:id', info)
-
-router.get('/chapters/:id', chapters)
-
-router.get('/images', images);
+// The fix is to explicitly cast the 'images' handler to the RequestHandler type.
+router.get('/images', images as RequestHandler);
 
 export default router;

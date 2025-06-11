@@ -1,4 +1,4 @@
-import { Router, RequestHandler } from "express"; // Import RequestHandler
+import { Router, RequestHandler } from "express";
 import { images } from "../controllers/images";
 import { popularUpdates } from "../controllers/popular-updates";
 import { latestReleases } from "../controllers/latest-releases";
@@ -26,6 +26,7 @@ router.get('/search', search);
 router.get('/info/:id', info);
 router.get('/chapters/:id', chapters);
 
-// The fix is to explicitly cast the 'images' handler to the RequestHandler type.
-router.get('/images/*', images as RequestHandler);
+// The fix is to use a named parameter for the wildcard route.
+router.get('/images/:path(*)', images as RequestHandler);
+
 export default router;

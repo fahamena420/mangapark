@@ -9,7 +9,7 @@ export const images = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Missing or invalid "id" query parameter' });
     }
 
-    const response = await client.get(`/${id}`);
+const response = await client.get(`/${id}`);
     const $ = cheerio.load(response.data);
     const object = JSON.parse($("script[type='qwik/json']").text()).objs;
     const jpegUrls = object.filter(

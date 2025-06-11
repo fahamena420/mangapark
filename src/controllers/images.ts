@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 import { client } from "../utils/client";
-import * as cheerio from 'cheerio'
+import * as cheerio from 'cheerio';
 
 export const images = async (req: Request, res: Response) => {
   try {
-    const { id } = req.query;
+    // The fix is to get the ID from req.params instead of req.query
+    const id = req.params[0]; 
+
     if (!id || typeof id !== 'string') {
-      return res.status(400).json({ error: 'Missing or invalid "id" query parameter' });
+      return res.status(400).json({ error: 'Missing or invalid "id" in the URL path' });
     }
 
-    // The fix is in the line below. I've wrapped the URL in backticks.
     const response = await client.get(`/${id}`);
-
     const $ = cheerio.load(response.data);
     const object = JSON.parse($("script[type='qwik/json']").text()).objs;
     const jpegUrls = object.filter(

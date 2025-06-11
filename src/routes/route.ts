@@ -26,7 +26,7 @@ router.get('/search', search);
 router.get('/info/:id', info);
 router.get('/chapters/:id', chapters);
 
-// The fix is to use a named parameter for the wildcard route.
-router.get('/images/:path(*)', images as RequestHandler);
+// The fix is to use a regular expression to capture the entire path.
+router.get(/\/images\/(.*)/, images as RequestHandler);
 
 export default router;

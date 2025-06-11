@@ -4,9 +4,12 @@ import * as cheerio from 'cheerio'
 
 export const images = async (req: Request, res: Response) => {
   try {
-    const wildcardPath = req.params.wildcard; // named wildcard
-    const response = await client.get(`/${wildcardPath}`);
+    const { id } = req.query;
+    if (!id || typeof id !== 'string') {
+      return res.status(400).json({ error: 'Missing or invalid "id" query parameter' });
+    }
 
+    const response = await client.get(`/${id}`);
     const $ = cheerio.load(response.data);
     const object = JSON.parse($("script[type='qwik/json']").text()).objs;
     const jpegUrls = object.filter(
@@ -18,3 +21,4 @@ export const images = async (req: Request, res: Response) => {
     res.status(500).json({ error: (error as Error).message });
   }
 };
+

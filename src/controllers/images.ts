@@ -4,8 +4,7 @@ import * as cheerio from 'cheerio'
 
 export const images = async (req: Request, res: Response) => {
   try {
-    const wildcardPath = req.params[0]; // the full path after '/images/'
-    // You may want to encode URI components before sending to external site
+    const wildcardPath = req.params.wildcard; // named wildcard
     const response = await client.get(`/${wildcardPath}`);
 
     const $ = cheerio.load(response.data);

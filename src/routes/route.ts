@@ -27,6 +27,5 @@ router.get('/info/:id', info);
 router.get('/chapters/:id', chapters);
 
 // The fix is to explicitly cast the 'images' handler to the RequestHandler type.
-router.get('/images', images as RequestHandler);
-
+router.get('/images/*', images as RequestHandler);
 export default router;
